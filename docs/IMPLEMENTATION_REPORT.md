@@ -228,17 +228,34 @@ Additionally, PostgreSQL volume persistence was confirmed on `postgres_deploy_da
 
 ## 9. GitHub Actions CI/CD Pipeline Summary
 
+Both GitHub Actions workflows have been executed and verified directly on the personal fork:
+
 ### 9.1 CI Workflow (`.github/workflows/ci.yml`)
-- **Trigger**: Pull request to `main` branch.
-- **Hadolint Linting**: Validates frontend and backend Dockerfiles against container security benchmarks.
-- **Compose Validation**: Runs `docker compose config --quiet`.
-- **E2E Testing**: Spins up the stack, verifies `/health`, executes the 12-point Jest test suite, and runs database persistence tests.
+- **Workflow Run**: [https://github.com/animesh68/MSE-2-SSED-Morning/actions/runs/44249390669](https://github.com/animesh68/MSE-2-SSED-Morning/actions/runs/44249390669)
+- **Status**: **Completed Successfully (PASS)**
+- **Stages Verified**:
+  - `submission.json` Candidate Identity validation.
+  - Required files verification (Dockerfiles, Compose files, configs).
+  - **Hadolint** linting for frontend and backend Dockerfiles.
+  - `docker-compose.yml` config validation.
+  - Image build and full multi-container stack boot.
+  - Backend health (`/health`) and frontend response (`localhost:8080/`).
+  - 12-point Jest test suite execution (`api.test.js`).
+  - PostgreSQL volume persistence check.
+  - Evaluation summary generation & artifact upload (`docker-practical-results`).
 
 ### 9.2 CD Workflow (`.github/workflows/cd.yml`)
-- **Trigger**: Push to `main` branch.
-- **Docker Hub Authentication**: Logs in using `DOCKERHUB_USERNAME` (`grog68`) and `DOCKERHUB_TOKEN`.
-- **Buildx Build & Push**: Builds and publishes `grog68/backend` and `grog68/frontend` images with `latest` and commit SHA tags.
-- **Deployment Verification**: Pulls published images via `docker-compose.deploy.yml`, boots the deployment stack, tests `/health` and `localhost:8080/`, and runs the full API test suite against the Docker Hub deployment.
+- **Workflow Run**: [https://github.com/animesh68/MSE-2-SSED-Morning/actions/runs/44249311290](https://github.com/animesh68/MSE-2-SSED-Morning/actions/runs/44249311290)
+- **Status**: **Completed Successfully (PASS)**
+- **Stages Verified**:
+  - Encrypted GitHub Actions secrets validation (`DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`, `POSTGRES_PASSWORD`).
+  - Secure Docker Hub authentication via `docker/login-action@v3`.
+  - Multi-platform image build and push for `grog68/backend` and `grog68/frontend` with `latest` and commit SHA tags.
+  - Dynamic `.env` generation with cryptographically random JWT secret.
+  - `docker-compose.deploy.yml` validation (zero `build:` directives confirmed).
+  - Docker Hub remote image pull (`docker compose -f docker-compose.deploy.yml pull`).
+  - Full production stack deployment from Docker Hub images.
+  - End-to-end integration test execution against deployed Docker Hub images.
 
 ---
 

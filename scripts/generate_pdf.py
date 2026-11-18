@@ -160,8 +160,10 @@ def create_report(filename, dockerhub_user="grog68"):
         [Paragraph("<b>Implementation Branch:</b>", body_style), Paragraph("main", body_style)],
         [Paragraph("<b>Target Base Repository:</b>", body_style), Paragraph("atindeRR/MSE-2-SSED-Morning (or instructor base)", body_style)],
         [Paragraph("<b>Pull Request Title:</b>", body_style), Paragraph("DOCKER-EXAM | 202401100300042 | Animesh Chandra Srivastava | AIML-B", body_style)],
-        [Paragraph("<b>Frontend Docker Image:</b>", body_style), Paragraph(f"https://hub.docker.com/r/{dockerhub_user}/frontend<br/><b>Digest:</b> <code>sha256:0dc6ec8aed5a95bf2246f73c3301182f3a97be578b470b84e05b32bcb05a41e4</code>", body_style)],
-        [Paragraph("<b>Backend Docker Image:</b>", body_style), Paragraph(f"https://hub.docker.com/r/{dockerhub_user}/backend<br/><b>Digest:</b> <code>sha256:64b4f63e2c15e56ec1594b61b3a333a45c7eff98bf1e5fb13c6df555f5b5df3d</code>", body_style)],
+        [Paragraph("<b>CD Workflow Run:</b>", body_style), Paragraph("https://github.com/animesh68/MSE-2-SSED-Morning/actions/runs/44249311290 (SUCCESS)", body_style)],
+        [Paragraph("<b>CI Workflow Run:</b>", body_style), Paragraph("https://github.com/animesh68/MSE-2-SSED-Morning/actions/runs/44249390669 (SUCCESS)", body_style)],
+        [Paragraph("<b>Frontend Docker Image:</b>", body_style), Paragraph(f"https://hub.docker.com/r/{dockerhub_user}/frontend (latest, SHA tags)", body_style)],
+        [Paragraph("<b>Backend Docker Image:</b>", body_style), Paragraph(f"https://hub.docker.com/r/{dockerhub_user}/backend (latest, SHA tags)", body_style)],
     ]
     t2 = Table(repo_data, colWidths=[160, 380])
     t2.setStyle(TableStyle([
